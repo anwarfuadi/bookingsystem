@@ -10,15 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'HomeController@index')->name('home');
-
-Route::post('logout', 'UserController@logout')->name('logout');
-
-Route::resources([
-    'user' => UserController::class,
-    'category' => CategoryController::class,
-    'customer' => CustomerController::class,
-    'product' => ProductController::class,
-    'order' => OrderController::class,
+Auth::routes([
+    'register' => false,
+    'verify' => false,
+    'reset' => false,
+    'confirm' => false,
 ]);
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Route::resources([
+        'user' => UserController::class,
+        'category' => CategoryController::class,
+        'customer' => CustomerController::class,
+        'product' => ProductController::class,
+        'order' => OrderController::class,
+    ]);
+
+});
+

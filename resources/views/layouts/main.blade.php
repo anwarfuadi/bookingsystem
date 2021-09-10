@@ -53,7 +53,7 @@
           </span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <form method="post" action="{{-- route('logout') --}}">
+          <form method="post" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="dropdown-item">Logout</button>
           </form>
