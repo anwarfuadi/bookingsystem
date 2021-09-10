@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use DataTables;
 
 class CategoryController extends Controller
 {
@@ -12,9 +13,24 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $categories = Category::get();
+
+            return Datatables::of($categories)
+                 ->addIndexColumn()
+                 ->addColumn('action', function ($category) {
+                     return '<a href="'.route('category.edit', [$category->id]).'"
+                     class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                     <a href="'.route('category.destroy', [$category->id]).'"
+                     class="btn btn-xs btn-danger" data-confirm="Yakin menghapus data ini?">
+                     <i class="fa fa-trash"></i> Hapus</a>';
+                 })
+                 ->toJson();
+        }
+
+        return view('category.index');
     }
 
     /**
@@ -24,7 +40,13 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
+    }
+
+    private function validateForm(Request $request){
+        $this->validate($request, [
+            'category_name' => 'required|min:3|max:30'
+        ]);
     }
 
     /**
@@ -35,7 +57,25 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateForm($request);
+
+        try {
+            $category = new Category();
+            $category->category_name = $request->category_name;
+            $category->save();
+
+            $result = [
+                'status' => 'success',
+                'message' => 'Data Berhasil Ditambahkan'
+            ];
+        } catch (Exception $e) {
+            $result = [
+                'status' => 'error',
+                'message' => 'Data Gagal Ditambahkan'
+            ];
+        }
+
+        return redirect()->route('category.index')->with($result);
     }
 
     /**
@@ -57,7 +97,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -69,7 +109,24 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $this->validateForm($request);
+
+        try {
+            $category->category_name = $request->category_name;
+            $category->save();
+
+            $result = [
+                'status' => 'success',
+                'message' => 'Data Berhasil Diperbarui'
+            ];
+        } catch (Exception $e) {
+            $result = [
+                'status' => 'error',
+                'message' => 'Data Gagal Diperbarui'
+            ];
+        }
+
+        return redirect()->route('category.index')->with($result);
     }
 
     /**
@@ -80,6 +137,19 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $result = $category->delete();
+        if ($result > 0){
+            $status = [
+                'status' => 'success',
+                'message' => 'Data Berhasil Dihaupus'
+            ];
+        }else{
+            $status = [
+                'status' => 'error',
+                'message' => 'Data Gagal Dihaupus'
+            ];
+        }
+
+        return response()->json($status);
     }
 }

@@ -19,3 +19,6 @@ php artisan make:controller UserController --model=Models\User -r
 
 php artisan make:seed UserSeeder
 php artisan db:seed
+
+composer require barryvdh/laravel-debugbar --dev
+
