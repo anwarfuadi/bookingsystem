@@ -13,9 +13,12 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::post('logout', 'UserController@logout')->name('logout');
+
 Route::resources([
     'user' => UserController::class,
     'category' => CategoryController::class,
     'customer' => CustomerController::class,
     'product' => ProductController::class,
+    'order' => OrderController::class,
 ]);

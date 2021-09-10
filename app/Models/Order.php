@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use Softdelete;
+    use SoftDeletes;
 
     protected $guarded = [];
 

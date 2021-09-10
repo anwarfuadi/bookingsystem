@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use Softdelete;
+    use SoftDeletes;
 
     protected $guarded = [];
 

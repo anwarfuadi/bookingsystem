@@ -48,12 +48,12 @@
         <a class="nav-link" data-toggle="dropdown" href="#">
           <span class="hidden-xs">
           @if(Auth::check())
-            {{ Auth::user()->name }} 
+            {{ Auth::user()->name }}
           @endif
           </span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <form method="post" action="{{ route('logout') }}">
+          <form method="post" action="{{-- route('logout') --}}">
             @csrf
             <button type="submit" class="dropdown-item">Logout</button>
           </form>
@@ -80,9 +80,9 @@
           <img src="{{ asset('img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"> 
+          <a href="#" class="d-block">
           @if(Auth::check())
-            {{ Auth::user()->name }} 
+            {{ Auth::user()->name }}
           @endif</a>
         </div>
       </div>

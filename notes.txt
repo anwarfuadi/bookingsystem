@@ -13,3 +13,6 @@ php artisan make:model Models\Product -c -r
 php artisan make:model Models\Category -c -r
 php artisan make:model Models\Order -c -r
 php artisan make:model Models\Customer -c -r
+
+php artisan make:controller HomeController
+php artisan make:controller UserController --model=Models\User -r

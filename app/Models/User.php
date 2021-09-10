@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use Notifiable;
-    use Softdelete;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
