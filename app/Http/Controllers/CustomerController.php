@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
 {
@@ -12,9 +13,24 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $customers = Customer::get();
+
+            return DataTables::of($customers)
+                ->addIndexColumn()
+                ->addColumn('action', function ($customer) {
+                    return '<a href="'.route('customer.edit', [$customer->id]).'"
+                     class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                     <a href="'.route('customer.destroy', [$customer->id]).'"
+                     class="btn btn-xs btn-danger" data-confirm="Yakin menghapus data ini?">
+                     <i class="fa fa-trash"></i> Hapus</a>';
+                })
+                ->toJson();
+        }
+
+        return view('customers.index');
     }
 
     /**
@@ -24,7 +40,20 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.create');
+    }
+
+    private function validateForm(Request $request){
+        $this->validate($request, [
+
+            'customer_no' => 'required|min:1|max:10',
+            'customer_name' => 'required|min:3|max:50',
+            'address' => 'required|min:3|max:255',
+            'email' => 'required|email|min:3|max:100',
+            'city' => 'required|min:3|max:50',
+            'hp' => 'required|min:10|max:15',
+
+        ]);
     }
 
     /**
@@ -35,7 +64,32 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validateForm($request);
+
+        try {
+            $customer = new Customer();
+
+            $customer->customer_no = $request->customer_no;
+            $customer->customer_name = $request->customer_name;
+            $customer->address = $request->address;
+            $customer->email = $request->email;
+            $customer->city = $request->city;
+            $customer->hp = $request->hp;
+
+            $customer->save();
+
+            $result = [
+                'status' => 'success',
+                'message' => 'Data Berhasil Ditambahkan'
+            ];
+        } catch (Exception $e) {
+            $result = [
+                'status' => 'error',
+                'message' => 'Data Gagal Ditambahkan'
+            ];
+        }
+
+        return redirect()->route('customer.index')->with($result);
     }
 
     /**
@@ -57,7 +111,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customers.edit', compact('customer'));
     }
 
     /**
@@ -69,7 +123,29 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $this->validateForm($request);
+
+        try {
+            $customer->customer_no = $request->customer_no;
+            $customer->customer_name = $request->customer_name;
+            $customer->address = $request->address;
+            $customer->email = $request->email;
+            $customer->city = $request->city;
+            $customer->hp = $request->hp;
+            $customer->save();
+
+            $result = [
+                'status' => 'success',
+                'message' => 'Data Berhasil Diperbarui'
+            ];
+        } catch (Exception $e) {
+            $result = [
+                'status' => 'error',
+                'message' => 'Data Gagal Diperbarui'
+            ];
+        }
+
+        return redirect()->route('customer.index')->with($result);
     }
 
     /**
@@ -80,6 +156,19 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $result = $customer->delete();
+        if ($result > 0){
+            $status = [
+                'status' => 'success',
+                'message' => 'Data Berhasil Dihaupus'
+            ];
+        }else{
+            $status = [
+                'status' => 'error',
+                'message' => 'Data Gagal Dihaupus'
+            ];
+        }
+
+        return response()->json($status);
     }
 }

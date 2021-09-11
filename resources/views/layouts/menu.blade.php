@@ -9,33 +9,27 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('user.index') }}" class="nav-link">
-                <i class="nav-icon fas fa-user"></i>
-                <p>Users</p>
+            <a href="{{ route('booking.index') }}" class="nav-link">
+                <i class="nav-icon fas fa-shopping-cart"></i>
+                <p>Pemesanan</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('customer.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
-                <p>Customer</p>
+                <p>Pelanggan</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('category.index') }}" class="nav-link">
+            <a href="{{ route('room.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
-                <p>Kategori Produk</p>
+                <p>Ruangan</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('product.index') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>Produk</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('order.index') }}" class="nav-link">
-                <i class="nav-icon fas fa-shopping-cart"></i>
-                <p>Penjualan</p>
+            <a href="{{ route('user.index') }}" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>Users</p>
             </a>
         </li>
     </ul>

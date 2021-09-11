@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Administrator',
             'hp' => '087654321',
-            'email' => 'admin@bananastore.okok',
+            'email' => 'admin@bookingsystem.com',
             'password' => Hash::make('password'),
             'level' => 'admin'
         ]);

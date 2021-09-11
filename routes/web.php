@@ -24,8 +24,8 @@ Route::middleware(['auth'])->group(function(){
         'user' => UserController::class,
         'category' => CategoryController::class,
         'customer' => CustomerController::class,
-        'product' => ProductController::class,
-        'order' => OrderController::class,
+        'room' => RoomController::class,
+        'booking' => BookingController::class
     ]);
 
 });
