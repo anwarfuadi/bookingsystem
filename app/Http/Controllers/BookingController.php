@@ -147,7 +147,7 @@ class BookingController extends Controller
         DB::beginTransaction();
         try{
             $order = Booking::create([
-                'booking_no' => "B00001",
+                'booking_no' => substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890"), 0, 5),
                 'customer_id' => $request->customer_id,
                 'booking_date' => now(),
                 'user_id' => Auth::user()->id

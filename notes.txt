@@ -63,5 +63,41 @@ DELIMITER ;
 
 
 
+DROP TRIGGER IF EXISTS insert_booking;
+DELIMITER $$
+CREATE TRIGGER insert_booking
+AFTER INSERT
+ON booking_details FOR EACH ROW
+BEGIN
+	DECLARE ym INT;
+	SET ym = (SELECT EXTRACT(YEAR_MONTH FROM NEW.use_date));
+
+	IF EXISTS(SELECT * FROM booking_summaries WHERE room_id=NEW.room_id AND yearmonth=ym) THEN
+	BEGIN
+		UPDATE booking_summaries SET book_num = book_num + 1;
+	END;
+	ELSE
+	BEGIN
+		INSERT INTO booking_summaries(room_id, yearmonth, book_num) VALUES (NEW.room_id, ym, 1);
+	END;
+	END IF;
+END$$
+DELIMITER ;
+
+
+DROP VIEW IF EXISTS booking_per_bulan;
+CREATE VIEW booking_per_bulan AS
+SELECT
+MONTHNAME(bd.use_date) AS bulan,
+YEAR(bd.use_date) AS tahun,
+COUNT(*) AS jml_booking
+FROM booking_details bd
+GROUP BY bulan, tahun;
+
+
+
+
+
+
 
 
