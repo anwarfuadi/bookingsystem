@@ -123,7 +123,6 @@
                 $('input[name="room_id"]').val();
                 $('input[name="use_date"]').val();
                 $('input[name="hour_num"]').val(1);
-                console.log(data);
                 if (data.order.length != 0){
                     if (!data.outOfStock){
                         let content = '';

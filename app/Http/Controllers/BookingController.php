@@ -32,7 +32,7 @@ class BookingController extends Controller
                 })
                 ->addColumn('action', function ($booking) {
                     return '<a href="'.route('booking.edit', [$booking->id]).'"
-                     class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>';
+                     class="btn btn-xs btn-primary"><i class="fa fa-info"></i> Lihat</a>';
                 })
                 ->toJson();
         }
@@ -47,6 +47,8 @@ class BookingController extends Controller
      */
     public function create()
     {
+        session()->forget('order');
+
         $customers = Customer::get(['id', 'customer_name']);
         $rooms = Room::get(['id', 'room_name']);
 
@@ -82,6 +84,31 @@ class BookingController extends Controller
                 'outOfStock' => $outOfStock
             ]);
         }
+
+        return response()->json(['order' => $orders, 'outOfStock' => $outOfStock]);
+    }
+
+    public function getDetails(Request $request){
+
+        $booking = Booking::find($request->bookingId);
+
+        $orders = [];
+        $outOfStock = false;
+
+        foreach ($booking->bookingDetails as $bd){
+            $orders[$bd->room_id] = [
+                'room_id' => $bd->room_id,
+                'room_name' => Room::find($bd->room_id)->room_name,
+                'use_date' => $bd->use_date,
+                'hour_num' => $bd->hour_num
+            ];
+        }
+
+        //simpan ke session
+        session([
+            'order' => $orders,
+            'outOfStock' => $outOfStock
+        ]);
 
         return response()->json(['order' => $orders, 'outOfStock' => $outOfStock]);
     }
@@ -167,7 +194,12 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        return view('bookings.edit', compact('booking'));
+
+        $customers = Customer::get(['id', 'customer_name']);
+        $rooms = Room::get(['id', 'room_name']);
+
+
+        return view('bookings.edit', compact('customers','rooms', 'booking'));
     }
 
     /**
