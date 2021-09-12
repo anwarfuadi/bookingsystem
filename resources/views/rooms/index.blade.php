@@ -1,10 +1,10 @@
 @extends('layouts.main')
 
-@section('title', 'Home')
+@section('title', 'Ruangan')
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a>
-<li class="breadcrumb-item active"><a href="#">Ruangan</a>
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active">Ruangan</li>
 @endsection
 
 @section('content')
@@ -51,5 +51,7 @@
             confirmDelete();
         }
     });
+
+    $('#room-menu').addClass('active');
 </script>
 @endpush

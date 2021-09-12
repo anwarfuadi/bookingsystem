@@ -3,8 +3,8 @@
 @section('title', 'Pemesanan')
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a>
-<li class="breadcrumb-item active"><a href="#">Pelanggan</a>
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active">Pemesanan</li>
 @endsection
 
 @section('content')
@@ -148,6 +148,8 @@
             }
         })
     });
+
+    $('#booking-menu').addClass('active');
 
 </script>
 @endpush

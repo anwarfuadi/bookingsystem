@@ -3,8 +3,8 @@
 @section('title', 'Home')
 
 @section('breadcrumb')
-<li class="breadcrumb-item"><a href="#">Home</a>
-<li class="breadcrumb-item active"><a href="#">Pengguna</a>
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active">Pengguna</li>
 @endsection
 
 @section('content')
@@ -69,3 +69,9 @@
     </div>
 </div>
 @endsection
+
+    @push('script')
+        <script>
+            $('#user-menu').addClass('active');
+        </script>
+@endpush

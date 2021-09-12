@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
-@section('title', 'Home')
+@section('title', 'Dashboard')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
     <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 
@@ -69,7 +69,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Pemesanan Per Bulan</div>
                 <div class="card-body">
@@ -96,3 +96,9 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        $('#dashboard-menu').addClass('active');
+    </script>
+@endpush
