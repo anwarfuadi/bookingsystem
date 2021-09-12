@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
@@ -46,7 +47,6 @@ class CustomerController extends Controller
     private function validateForm(Request $request){
         $this->validate($request, [
 
-            'customer_no' => 'required|min:1|max:10',
             'customer_name' => 'required|min:3|max:50',
             'address' => 'required|min:3|max:255',
             'email' => 'required|email|min:3|max:100',
@@ -67,7 +67,7 @@ class CustomerController extends Controller
         $this->validateForm($request);
 
         try {
-            $customer = new Customer();
+            /*$customer = new Customer();
 
             $customer->customer_no = $request->customer_no;
             $customer->customer_name = $request->customer_name;
@@ -75,8 +75,15 @@ class CustomerController extends Controller
             $customer->email = $request->email;
             $customer->city = $request->city;
             $customer->hp = $request->hp;
+            $customer->save();*/
 
-            $customer->save();
+            DB::statement("CALL proc_customer('ADD', null,
+                '$request->customer_name',
+                '$request->address',
+                '$request->city',
+                '$request->email',
+                '$request->hp'
+            )");
 
             $result = [
                 'status' => 'success',
@@ -126,13 +133,21 @@ class CustomerController extends Controller
         $this->validateForm($request);
 
         try {
-            $customer->customer_no = $request->customer_no;
+            /*$customer->customer_no = $request->customer_no;
             $customer->customer_name = $request->customer_name;
             $customer->address = $request->address;
             $customer->email = $request->email;
             $customer->city = $request->city;
             $customer->hp = $request->hp;
-            $customer->save();
+            $customer->save();*/
+
+            DB::statement("CALL proc_customer('EDIT', $customer->id,
+                '$request->customer_name',
+                '$request->address',
+                '$request->city',
+                '$request->email',
+                '$request->hp'
+            )");
 
             $result = [
                 'status' => 'success',
@@ -156,13 +171,22 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        $result = $customer->delete();
-        if ($result > 0){
+
+        try {
+
+            DB::statement("CALL proc_customer('DELETE', $customer->id,
+                null,
+                null,
+                null,
+                null,
+                null
+            )");
+
             $status = [
                 'status' => 'success',
                 'message' => 'Data Berhasil Dihaupus'
             ];
-        }else{
+        } catch (Exception $e) {
             $status = [
                 'status' => 'error',
                 'message' => 'Data Gagal Dihaupus'

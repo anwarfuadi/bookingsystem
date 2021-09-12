@@ -22,3 +22,46 @@ php artisan db:seed
 
 composer require barryvdh/laravel-debugbar --dev
 
+DROP FUNCTION IF EXISTS new_cust_no;
+DELIMITER $$
+CREATE FUNCTION new_cust_no() RETURNS VARCHAR(10)
+BEGIN
+	DECLARE ai INT;
+	DECLARE cust_no VARCHAR(10);
+	SET ai = (SELECT AUTO_INCREMENT
+		FROM information_schema.TABLES
+		WHERE TABLE_SCHEMA = "bookingsystem"
+		AND TABLE_NAME = "customers");
+	SET cust_no = CONCAT("C",ai);
+  RETURN cust_no;
+END$$
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS proc_customer;
+DELIMITER $$
+CREATE PROCEDURE proc_customer
+(
+	proc VARCHAR(6),
+	pId INT,
+	pNama VARCHAR(50),
+	pAddress VARCHAR(255),
+	pCity VARCHAR(50),
+	pEmail VARCHAR(100),
+	pHp VARCHAR(15)
+)
+BEGIN
+	IF proc = 'ADD' THEN
+		INSERT INTO customers(customer_no, customer_name, address, city, email, hp) values(new_cust_no(), pNama, pAddress, pCity, pEmail, pHp);
+	ELSEIF proc = 'EDIT' THEN
+		UPDATE customers SET customer_name = pNama, address = pAddress, city = pCity, email = pEmail, hp = pHp WHERE id = pId;
+	ELSEIF proc = 'DELETE' THEN
+		DELETE FROM customers	WHERE id = pId;
+	END IF;
+END$$
+DELIMITER ;
+
+
+
+
+

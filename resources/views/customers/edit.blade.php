@@ -20,7 +20,7 @@
                 <label for="customer_no">Nomor Pelanggan</label>
                 <input type="text"  name="customer_no" value="{{ $customer->customer_no }}"
                        class="form-control @error('customer_no') is-invalid @enderror"
-                       required/>
+                       required readonly />
                 @error('customer_no')
                 <label for="customer_no" class="invalid-feedback">{{ $message }}</label>
                 @enderror

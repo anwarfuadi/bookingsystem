@@ -15,7 +15,7 @@
     <div class="card-body">
         <form method="POST" action="{{ route('customer.store') }}" autocomplete="off">
             @csrf
-            <div class="form-group">
+            {{--<div class="form-group">
                 <label for="customer_no">Nomor Pelanggan</label>
                 <input type="text"  name="customer_no" value="{{ old('customer_no') }}"
                 class="form-control @error('customer_no') is-invalid @enderror"
@@ -23,7 +23,7 @@
                 @error('customer_no')
                     <label for="customer_no" class="invalid-feedback">{{ $message }}</label>
                 @enderror
-            </div>
+            </div>--}}
             <div class="form-group">
                 <label for="customer_name">Nama</label>
                 <input type="text"  name="customer_name" value="{{ old('customer_name') }}"
