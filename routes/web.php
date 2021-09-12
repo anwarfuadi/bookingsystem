@@ -20,6 +20,8 @@ Auth::routes([
 Route::middleware(['auth'])->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
 
+    Route::get('booking/room', 'BookingController@getRoom')->name('booking.getRoom');
+
     Route::resources([
         'user' => UserController::class,
         'category' => CategoryController::class,

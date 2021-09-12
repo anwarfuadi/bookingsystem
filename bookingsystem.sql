@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 11/09/2021 21:11:47
+ Date: 12/09/2021 13:56:58
 */
 
 SET NAMES utf8mb4;
@@ -70,7 +70,7 @@ CREATE TABLE `bookings` (
   KEY `fk_book_user` (`user_id`),
   CONSTRAINT `fk_book_cust` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`),
   CONSTRAINT `fk_book_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for categories
@@ -86,32 +86,23 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
--- Records of categories
--- ----------------------------
-BEGIN;
-INSERT INTO `categories` VALUES (12, 'Buku', '2021-09-11 09:51:36', '2021-09-11 09:51:36', NULL);
-INSERT INTO `categories` VALUES (13, 'Baju', '2021-09-11 09:51:55', '2021-09-11 09:51:55', NULL);
-INSERT INTO `categories` VALUES (14, 'Obat Kuat', '2021-09-11 09:52:02', '2021-09-11 09:52:16', '2021-09-11 09:52:16');
-COMMIT;
-
--- ----------------------------
 -- Table structure for customers
 -- ----------------------------
 DROP TABLE IF EXISTS `customers`;
 CREATE TABLE `customers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_no` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `customer_name` varchar(65) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(125) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(65) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hp` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `customers_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for rooms
@@ -122,12 +113,12 @@ CREATE TABLE `rooms` (
   `room_code` varchar(5) NOT NULL,
   `room_name` varchar(50) NOT NULL,
   `capacity` int(11) NOT NULL,
-  `floor` int(11) NOT NULL,
+  `floor` varchar(3) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for users
@@ -135,9 +126,9 @@ CREATE TABLE `rooms` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(65) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hp` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(65) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `level` enum('admin','user') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -145,6 +136,6 @@ CREATE TABLE `users` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 SET FOREIGN_KEY_CHECKS = 1;

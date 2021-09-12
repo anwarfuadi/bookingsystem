@@ -4,27 +4,26 @@
 
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="#">Home</a>
-<li class="breadcrumb-item active"><a href="#">Pelanggan</a>
+<li class="breadcrumb-item active"><a href="#">Pemesanan</a>
 @endsection
 
 @section('content')
 <div class="card">
     <div class="card-header">
-        Data Pelanggan
+        Data Pemesanan
     </div>
     <div class="card-body">
 
-        <a href="{{ route('customer.create') }}" class="btn btn-success btn-sm mb-3">Tambah</a>
+        <a href="{{ route('booking.create') }}" class="btn btn-success btn-sm mb-3">Tambah</a>
 
-        <table id="customer-table" class="table table-stripped">
+        <table id="booking-table" class="table table-stripped">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nomor Pelanggan</th>
-                    <th>Nama</th>
-                    <th>Kota</th>
-                    <th>Email</th>
-                    <th>HP</th>
+                    <th>Nomor Pemesanan</th>
+                    <th>Pelanggan</th>
+                    <th>Pengguna</th>
+                    <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -35,18 +34,17 @@
 
 @push('script')
 <script>
-    var table = $('#customer-table').DataTable({
+    var table = $('#booking-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route('customer.index') }}',
+        ajax: '{{ route('booking.index') }}',
         order: [[1,'asc']],
         columns: [
             {data: 'DT_RowIndex', searchable: false, orderable:false},
-            {data: 'customer_no'},
+            {data: 'booking_no'},
             {data: 'customer_name'},
-            {data: 'address'},
-            {data: 'email'},
-            {data: 'hp'},
+            {data: 'user_name'},
+            {data: 'booking_date'},
             {data: 'action', searchable: false, orderable:false},
         ],
         drawCallback: function(){
