@@ -17,6 +17,12 @@ Auth::routes([
     'confirm' => false,
 ]);
 
+Route::middleware(['auth', 'checkuser:admin'])->group(function () {
+    Route::resources([
+        'user' => UserController::class
+    ]);
+});
+
 Route::middleware(['auth'])->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
 
@@ -24,7 +30,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('booking/details', 'BookingController@getDetails')->name('booking.getDetails');
 
     Route::resources([
-        'user' => UserController::class,
         'category' => CategoryController::class,
         'customer' => CustomerController::class,
         'room' => RoomController::class,
