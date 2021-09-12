@@ -29,7 +29,7 @@
         <li class="nav-item">
             <a href="{{ route('user.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
-                <p>Users</p>
+                <p>Pengguna</p>
             </a>
         </li>
     </ul>
