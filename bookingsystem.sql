@@ -11,7 +11,7 @@
  Target Server Version : 100417
  File Encoding         : 65001
 
- Date: 12/09/2021 18:55:47
+ Date: 13/09/2021 09:06:25
 */
 
 SET NAMES utf8mb4;
@@ -129,7 +129,7 @@ CREATE TABLE `customers` (
 -- Records of customers
 -- ----------------------------
 BEGIN;
-INSERT INTO `customers` VALUES (4, 'C4', 'Kalila Radiya Ali', 'Jl. Gajah Mada No .12', 'Ponorogo2', 'kalila@gmail.com2', '08123456789', NULL, '2021-09-12 10:39:45', NULL);
+INSERT INTO `customers` VALUES (4, 'C4', 'Kalila Radiya', 'Jl. Gajah Mada No .12', 'Ponorogo2', 'kalila@gmail.com2', '08123456789', NULL, '2021-09-12 10:39:45', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -179,7 +179,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `users` VALUES (1, 'Administrator', '087654321', 'admin@bookingsystem.com', '$2y$10$/VDC8wWZdyT8/l.b2fBZsuSl89L4zHpMK2I7yDnRAPuXEDYuGUTF6', 'admin', '2021-09-11 14:14:46', '2021-09-11 14:14:46', NULL);
-INSERT INTO `users` VALUES (2, 'Anwar OK', '085649010588', 'anwar@akn.net', '$2y$10$RZVpJJGLghP9kxfdqdZXQuBU29kmZoPJb2UXu25.dp.al5uR0ZhCy', 'user', '2021-09-12 01:31:35', '2021-09-12 01:53:53', NULL);
+INSERT INTO `users` VALUES (2, 'Anwar Fuadi', '085649010588', 'anwar@akn.net', '$2y$10$RZVpJJGLghP9kxfdqdZXQuBU29kmZoPJb2UXu25.dp.al5uR0ZhCy', 'user', '2021-09-12 01:31:35', '2021-09-13 01:58:18', NULL);
 COMMIT;
 
 -- ----------------------------

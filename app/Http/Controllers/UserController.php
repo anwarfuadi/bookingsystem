@@ -50,8 +50,7 @@ class UserController extends Controller
             'name' => 'required|min:3|max:50',
             'hp' => 'required|min:10|max:15',
             'email' => 'required|email|min:3|max:100',
-            'level' => 'required',
-            'password' => 'required'
+            'level' => 'required'
 
         ]);
     }
@@ -129,7 +128,9 @@ class UserController extends Controller
             $user->hp = $request->hp;
             $user->email = $request->email;
             $user->level = $request->level;
-            $user->password = Hash::make($request->password);
+            if(!is_null($request->password)){
+                $user->password = Hash::make($request->password);
+            }
             $user->save();
 
             $result = [

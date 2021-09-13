@@ -57,7 +57,7 @@
                 <label for="password">Password</label>
                 <input type="password"  name="password" value="{{ $user->password }}"
                        class="form-control @error('password') is-invalid @enderror"
-                       required/>
+                       />
                 @error('password')
                 <label for="password" class="invalid-feedback">{{ $message }}</label>
                 @enderror
